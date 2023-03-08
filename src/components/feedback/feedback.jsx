@@ -1,6 +1,6 @@
 import React from 'react';
 import { Markup } from './markup';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 
 export class Feedback extends React.Component {
   state = {
@@ -17,21 +17,23 @@ export class Feedback extends React.Component {
         [target.name.toLowerCase()]: prevState[target.name.toLowerCase()] + 1,
       };
     });
-
-    console.log(target.name.toLowerCase());
-    console.log(this.state.good);
   };
 
   countTotalFeedback = () => {
     return this.state.good + this.state.neutral + this.state.bad;
-    // console.log(total);
   };
 
   countPositiveFeedbackPercentage() {
-    console.log('click Positive Feedback Percentage');
+    return Math.round(
+      (this.state.good /
+        (this.state.good + this.state.neutral + this.state.bad)) *
+        100
+    );
   }
 
   render() {
+    const total = this.countTotalFeedback();
+    const percentage = this.countPositiveFeedbackPercentage();
     return (
       <div>
         <Markup
@@ -39,14 +41,10 @@ export class Feedback extends React.Component {
           good={this.state.good}
           neutral={this.state.neutral}
           bad={this.state.bad}
+          total={total}
+          percentage={percentage}
         />
       </div>
     );
   }
 }
-
-Feedback.propTypes = {
-  good: PropTypes.string.isRequired,
-  neutral: PropTypes.string.isRequired,
-  bad: PropTypes.string.isRequired,
-};
