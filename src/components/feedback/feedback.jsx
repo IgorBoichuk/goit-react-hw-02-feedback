@@ -1,17 +1,10 @@
 import React from 'react';
 import { Statistics } from '../statistics/statistics';
-
-import style from './Style.module.css';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 export const Feedback = ({ total, percentage, state }) => {
-  // const total = this.countTotalFeedback();
-  // const percentage = this.countPositiveFeedbackPercentage();
-
   return (
     <div>
-      <h1 className={style.title}>Please leave feedback</h1>
-
       <Statistics
         good={state.good}
         neutral={state.neutral}
@@ -22,4 +15,10 @@ export const Feedback = ({ total, percentage, state }) => {
       />
     </div>
   );
+};
+
+Feedback.prototype = {
+  total: PropTypes.number.isRequired,
+  percentage: PropTypes.number.isRequired,
+  state: PropTypes.array.isRequired,
 };

@@ -1,7 +1,10 @@
 import React from 'react';
+import style from './Style.module.css';
+
 import { Feedback } from './feedback/feedback';
 import { Feedbackoptions } from './feedback-options/feedbackoptions';
 import { Section } from './section/section';
+import { Notification } from './notification/Notification';
 
 export class App extends React.Component {
   state = {
@@ -34,22 +37,31 @@ export class App extends React.Component {
   render() {
     return (
       <div
+        className={style.container}
         style={{
           height: '100vh',
-          display: 'flex',
-          justifyContent: 'center',
+          marginLeft: 'auto',
           fontSize: 40,
           color: '#010101',
         }}
       >
-        <Feedback
-          total={this.countTotalFeedback()}
-          percentage={this.countPositiveFeedbackPercentage()}
-          onIncrement={this.increment}
-          state={this.state}
-        />
-        <Feedbackoptions onIncrement={this.increment} />
-        <Section></Section>
+        <Section title={''}>
+          <h1 className={style.title}>Please leave feedback</h1>
+          <Feedbackoptions onIncrement={this.increment} />
+        </Section>
+
+        <Section>
+          {this.countTotalFeedback() ? (
+            <Feedback
+              total={this.countTotalFeedback()}
+              percentage={this.countPositiveFeedbackPercentage()}
+              onIncrement={this.increment}
+              state={this.state}
+            ></Feedback>
+          ) : (
+            <Notification message={'There is no feedback'}></Notification>
+          )}
+        </Section>
       </div>
     );
   }

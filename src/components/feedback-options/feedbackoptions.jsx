@@ -1,4 +1,4 @@
-import style from './Style.module.css';
+import style from '../Style.module.css';
 
 export const Feedbackoptions = ({ onIncrement }) => {
   return (
